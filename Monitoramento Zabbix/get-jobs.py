@@ -27,9 +27,8 @@ headers = {
 
 def get_jobs():
     """Busca lista de Jobs na API do Commvault.
-    Esta função envia uma solicitação GET para a URL especificada em #Configurações
-    para listar os jobs dos últimos 3600 segundos. Ela lida com quaisquer exceções 
-    na solicitação e retorna uma lista vazia em caso de erro.
+    Esta função envia uma solicitação GET para a URL especificada em #Configurações para listar os jobs dos últimos 3600 segundos. Ela lida com quaisquer exceções na solicitação e retorna uma lista vazia em caso de erro.
+    
     Returns:
         list: Uma lista de Jobs. Se ocorrer um erro, uma lista vazia será retornada.
     Raises:
@@ -92,10 +91,7 @@ def parse_jobs(jobs):
 
 def send_to_zabbix(metrics):
     """Enviar métricas coletadas para o Zabbix.
-    Esta função pega um dicionário de métricas e envia cada par de chave-valor 
-    para o servidor Zabbix usando o executável zabbix_sender. Ele constrói um 
-    comando para cada métrica e o executa no shell. Se o comando falhar, uma 
-    mensagem de erro é impressa.
+    Esta função pega um dicionário de métricas e envia cada par de chave-valor  para o servidor Zabbix usando o executável zabbix_sender. Ele constroi um comando para cada métrica e o executa no shell. Se o comando falhar, uma mensagem de erro é impressa.
     Args:
         metrics (dict): Um dicionário onde as chaves são nomes de métricas e os 
                         valores são os valores de métricas correspondentes a serem 

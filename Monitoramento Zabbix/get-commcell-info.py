@@ -25,11 +25,32 @@ headers = {
 }
 
 def sanitize_string(value):
+    """Faz a limpeza da string removendo quaisquer caracteres especiais.
+
+    Essa funcao verifica se o valor inserido é uma string. Se é uma string, ela remove qualquer caracter que não seja alphanumeric, spaces, underscores, or hyphens. Se o valor não é uma string irá retornar os primeiros 255 caracteres.
+    
+    Args:
+        value (str or any): Valor inserido para ser sanitizado.
+    
+    Returns:
+        str or any: Uma string sanitizada.
+    """
     if isinstance(value, str):
         return re.sub(r"[^a-zA-Z0-9 _-]", "", value)  # Remove caracteres especiais
     return value[:255]
 
 def get_commcell_license():
+    """Retorna informacoes a respeito da licenca do Commvault.
+    
+    Essa funcao envia um requisicao GET para a API do Commvault que retornara a data de expiracao da licenca. Se a requisicao e realizada com sucesso e tentado enviar o valor para o Zabbix. Em caso de erro e apresentado uma mensagem de erro.
+    
+    Returns:
+        list: Retornara uma lista vazia em caso de erro.
+    
+    Raises:
+        requests.exceptions.RequestException: Se ocorrer algum erro com a requisicao HTTP.
+        subprocess.CalledProcessError: Se ocorrer algum erro no envio dos dados para o Zabbix.
+    """
     url = f'{COMMVAULT_SERVER}/commandcenter/api/V4/License'
     try:
         response = requests.request("GET", url, headers=headers, data=payload, verify=False)
@@ -45,6 +66,17 @@ def get_commcell_license():
         return []
 
 def get_commcell_name():
+    """Retorna o nome do CommCell.
+    
+    Essa funcao envia um requisicao GET para a API do Commvault que retornara o nome do CommCell. Se a requisicao for realizada com sucesso o dado coletado e enviado para o Zabbix. Em caso de erro e apresentado uma mensagem de erro.
+    
+    Returns:
+        list: Retornara uma lista vazia em caso de erro. Caso contrario retornara o valor.
+    
+    Raises:
+        requests.exceptions.RequestException: Se ocorrer algum erro com a requisicao HTTP.
+        subprocess.CalledProcessError: Se ocorrer algum erro no envio dos dados para o Zabbix.
+    """
     url = f'{COMMVAULT_SERVER}/commandcenter/api/CommServ'
     try:
         response = requests.request("GET", url, headers=headers, data=payload, verify=False)
@@ -60,6 +92,17 @@ def get_commcell_name():
         return []
 
 def get_commcell_release():
+    """Retorna a release do CommCell.
+    
+    Essa funcao envia um requisicao GET para a API do Commvault que retornara o nome da realeas e informacoes de versao. Se a requisicao for realizada com sucesso o dado coletado e enviado para o Zabbix. Em caso de erro e apresentado uma mensagem de erro.
+    
+    Returns:
+        list: Retornara uma lista vazia em caso de erro.
+    
+    Raises:
+        requests.exceptions.RequestException: Se ocorrer algum erro com a requisicao HTTP.
+        subprocess.CalledProcessError: Se ocorrer algum erro no envio dos dados para o Zabbix.
+    """
     url = f'{COMMVAULT_SERVER}/commandcenter/api/CommServ'
     try:
         response = requests.request("GET", url, headers=headers, data=payload, verify=False)
@@ -77,6 +120,17 @@ def get_commcell_release():
         return []
     
 def get_commcell_health():
+    """Consulta informações de status de saude do CommCell e envia para o Zabbix.
+    
+    ssa funcao envia um requisicao GET para a API do Commvault que retornara com os dados de saude do CommCell. A resposta é processada e extraida as informacoes. Cada metrica e enviada para o Zabbix.
+    
+    Returns:
+        list: Retornara uma lista vazia em caso de erro.
+    
+    Raises:
+        requests.exceptions.RequestException: Se ocorrer algum erro com a requisicao HTTP.
+        subprocess.CalledProcessError: Se ocorrer algum erro no envio dos dados para o Zabbix.
+    """
     url = f'{COMMVAULT_SERVER}/commandcenter/api/cr/reportsplusengine/datasets/b50b20ed-5fc4-4b4c-f7c4-fc6b84eb35cc/data?cache=true&parameter.commUniId=10000'
     try:
         response = requests.request("GET", url, headers=headers, data=payload, verify=False)

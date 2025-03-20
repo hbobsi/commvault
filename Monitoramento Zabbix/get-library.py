@@ -89,7 +89,7 @@ def get_libraries_status():
 def send_to_zabbix(libraries):
     """Envia uma lista de Libraries para o Zabbix usando o comando zabbix_sender.
     
-    Esta função constrói um comando para enviar dados de LLD para o Zabbix. Ela utiliza o módulo `subprocess` para executar o comando em um ambiente shell. Se o comando falhar, uma mensagem de erro será impressa.
+    Esta função constroi um comando para enviar dados de LLD para o Zabbix. Ela utiliza o módulo `subprocess` para executar o comando em um ambiente shell. Se o comando falhar, uma mensagem de erro será impressa.
     
     Args:
         libraries (str): Uma string que apresenta todas as Libraries a serem enviadas ao Zabbix.
@@ -107,7 +107,7 @@ def send_to_zabbix(libraries):
 def send_to_zabbix_data(key_normalized,library_name,value):
     """Envia dados para o Zabbix usando zabbix_sender.
     
-    Esta função constrói um comando para enviar um valor especificado para um servidor Zabbix para uma chave e nome de library fornecidos. Ele executa o comando usando o módulo subprocess e manipula quaisquer erros que possam ocorrer durante a execução.
+    Esta função constroi um comando para enviar um valor especificado para um servidor Zabbix para uma chave e nome de library fornecidos. Ele executa o comando usando o módulo subprocess e manipula quaisquer erros que possam ocorrer durante a execução.
     
     Args:
         key_normalized (str): Padroniza a chave para o item Zabbix.

@@ -28,6 +28,16 @@ headers = {
 }
 
 def sanitize_string(value):
+    """Faz a limpeza da string removendo quaisquer caracteres especiais.
+
+    Essa funcao verifica se o valor inserido é uma string. Se é uma string, ela remove qualquer caracter que não seja alphanumeric, spaces, underscores, or hyphens. Se o valor não é uma string irá retornar os primeiros 255 caracteres.
+    
+    Args:
+        value (str or any): Valor inserido para ser sanitizado.
+    
+    Returns:
+        str or any: Uma string sanitizada.
+    """
     if isinstance(value, str):
         return re.sub(r"[^a-zA-Z0-9 _-]", "", value)  # Remove caracteres especiais
     return value[:255]
